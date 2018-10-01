@@ -23,14 +23,14 @@
     </developers>
 
     <scm>
-        <url>https://github.com/paslavsky/slf4jkotlin</url>
-        <connection>https://github.com/paslavsky/slf4jkotlin.git</connection>
+        <url>https://github.com/paslavsky/slf4kotlin</url>
+        <connection>https://github.com/paslavsky/slf4kotlin.git</connection>
     </scm>
 
     <inceptionYear>2017</inceptionYear>
 
     <issueManagement>
-        <url>https://github.com/paslavsky/slf4jkotlin/issues</url>
+        <url>https://github.com/paslavsky/slf4kotlin/issues</url>
         <system>GitHub</system>
     </issueManagement>
 
@@ -44,7 +44,7 @@
     <distributionManagement>
         <repository>
             <id>bintray-repo-maven</id>
-            <url>https://api.bintray.com/maven/paslavsky/maven/slf4jkotlin/;publish=1</url>
+            <url>https://api.bintray.com/maven/paslavsky/maven/slf4kotlin/;publish=1</url>
         </repository>
     </distributionManagement>
 

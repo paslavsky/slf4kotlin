@@ -2,6 +2,9 @@ language: java
 script: mvn package
 jdk:
   - oraclejdk8
+branches:
+  except:
+    - gh-pages
 deploy:
   - provider: releases
     skip_cleanup: true
@@ -10,7 +13,7 @@ deploy:
     file: target/slf4kotlin-kt-0.0.1.jar
     overwrite: true
     on:
-      repo: paslavsky/mockito-kt
+      repo: paslavsky/slf4kotlin
       branch: master
   - provider: script
     script: "cp .travis.settings.xml $HOME/.m2/settings.xml && mvn deploy"
