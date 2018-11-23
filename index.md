@@ -10,7 +10,7 @@ Slf4kotlin provide simple API to write logs in Kotlin way:
 import com.github.paslavsky.logDebug
 
 fun sayHello() {
-    logDebug { "Hello again" }
+    logDebug { "Hello world" }
 }
 ```
 You don't need to use `LoggerFactory` to create new logger and save them into some class fields. 
