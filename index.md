@@ -26,4 +26,4 @@ Slf4Kotlin provides few extension functions that applicable for any _not null_ o
 
 ---
 * Getting started with [Gradle](gradle.md)
-* Getting started with [Maven](gradle.md)
+* Getting started with [Maven](maven.md)
