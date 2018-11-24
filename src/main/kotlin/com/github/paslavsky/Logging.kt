@@ -111,10 +111,10 @@ fun <T> Any.logTime(name: String, level: LogLevel = LogLevel.Debug, block: () ->
 
 private fun tookFrom(start: Long) = (System.currentTimeMillis() - start).let {
     when {
-        it > TimeUnit.DAYS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toDays(it)} day(s) and ${TimeUnit.MILLISECONDS.toHours(it)} hour(s)"
-        it > TimeUnit.HOURS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toHours(it)} hour(s) and ${TimeUnit.MILLISECONDS.toMinutes(it)} minute(s)"
-        it > TimeUnit.MINUTES.toMillis(1) -> "${TimeUnit.MILLISECONDS.toMinutes(it)} minute(s) and ${TimeUnit.MILLISECONDS.toSeconds(it)} second(s)"
-        it > TimeUnit.SECONDS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toSeconds(it)} second(s) and ${it % 1000} milliseconds"
+        it >= TimeUnit.DAYS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toDays(it)} day(s) and ${TimeUnit.MILLISECONDS.toHours(it)} hour(s)"
+        it >= TimeUnit.HOURS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toHours(it)} hour(s) and ${TimeUnit.MILLISECONDS.toMinutes(it)} minute(s)"
+        it >= TimeUnit.MINUTES.toMillis(1) -> "${TimeUnit.MILLISECONDS.toMinutes(it)} minute(s) and ${TimeUnit.MILLISECONDS.toSeconds(it)} second(s)"
+        it >= TimeUnit.SECONDS.toMillis(1) -> "${TimeUnit.MILLISECONDS.toSeconds(it)} second(s) and ${it % 1000} milliseconds"
         else -> "$it milliseconds"
     }
 }
