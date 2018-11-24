@@ -6,7 +6,7 @@
 
     <groupId>com.github.paslavsky</groupId>
     <artifactId>slf4kotlin</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <packaging>jar</packaging>
 
     <name>Kotlin Wrapper for slf4j library</name>
