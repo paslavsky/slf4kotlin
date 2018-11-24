@@ -228,8 +228,7 @@ class LoggingTest {
         }
 
         val wroteText = output.toString()
-        assertEquals("", wroteText)
-        assertTrue {
+        assertTrue("Actual:\t$wroteText,\nExpected:\t * DEBUG * PROCESS_NAME * took 1 second(s) *") {
             wroteText.contains("DEBUG") &&
                     wroteText.contains("PROCESS_NAME") &&
                     wroteText.contains("took 1 second(s)")
@@ -243,8 +242,8 @@ class LoggingTest {
             TimeUnit.SECONDS.sleep(1)
         }
 
-        assertTrue {
-            val wroteText = output.toString()
+        val wroteText = output.toString()
+        assertTrue("Actual:\t$wroteText,\nExpected:\t * INFO * PROCESS_NAME * took 1 second(s) *") {
             wroteText.contains("INFO") &&
                     wroteText.contains("PROCESS_NAME") &&
                     wroteText.contains("took 1 second(s)")
@@ -262,8 +261,8 @@ class LoggingTest {
             @Suppress("UNREACHABLE_CODE")
             fail()
         } catch (e: UnsupportedOperationException) {
-            assertTrue {
-                val wroteText = output.toString()
+            val wroteText = output.toString()
+            assertTrue("Actual:\t$wroteText,\nExpected:\t * WARN * PROCESS_NAME * execution failed after 1 second(s) *") {
                 wroteText.contains("WARN") &&
                         wroteText.contains("PROCESS_NAME") &&
                         wroteText.contains("execution failed after 1 second(s)")
