@@ -7,10 +7,7 @@ import org.junit.Before
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.util.concurrent.TimeUnit
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
-import kotlin.test.fail
+import kotlin.test.*
 
 class LoggingTest {
     private lateinit var output: ByteArrayOutputStream
@@ -230,8 +227,9 @@ class LoggingTest {
             TimeUnit.SECONDS.sleep(1)
         }
 
+        val wroteText = output.toString()
+        assertEquals("", wroteText)
         assertTrue {
-            val wroteText = output.toString()
             wroteText.contains("DEBUG") &&
                     wroteText.contains("PROCESS_NAME") &&
                     wroteText.contains("took 1 second(s)")
