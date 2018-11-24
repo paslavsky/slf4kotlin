@@ -6,10 +6,11 @@ import org.junit.Test
 import org.junit.Before
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
-import java.lang.RuntimeException
+import java.util.concurrent.TimeUnit
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import kotlin.test.fail
 
 class LoggingTest {
     private lateinit var output: ByteArrayOutputStream
@@ -219,6 +220,56 @@ class LoggingTest {
             wroteText.contains("WARN") &&
                     wroteText.contains("TODO") &&
                     wroteText.contains(">>>TODO-MESSAGE<<<")
+        }
+    }
+
+    @Test
+    fun logTime() {
+        logTime("PROCESS_NAME") {
+            // Some dummy actions
+            TimeUnit.SECONDS.sleep(1)
+        }
+
+        assertTrue {
+            val wroteText = output.toString()
+            wroteText.contains("DEBUG") &&
+                    wroteText.contains("PROCESS_NAME") &&
+                    wroteText.contains("took 1 second(s)")
+        }
+    }
+
+    @Test
+    fun logTimeInfo() {
+        logTime("PROCESS_NAME", LogLevel.Info) {
+            // Some dummy actions
+            TimeUnit.SECONDS.sleep(1)
+        }
+
+        assertTrue {
+            val wroteText = output.toString()
+            wroteText.contains("INFO") &&
+                    wroteText.contains("PROCESS_NAME") &&
+                    wroteText.contains("took 1 second(s)")
+        }
+    }
+
+    @Test
+    fun logTimeFail() {
+        try {
+            logTime("PROCESS_NAME", LogLevel.Info) {
+                // Some dummy actions
+                TimeUnit.SECONDS.sleep(1)
+                throw UnsupportedOperationException()
+            }
+            @Suppress("UNREACHABLE_CODE")
+            fail()
+        } catch (e: UnsupportedOperationException) {
+            assertTrue {
+                val wroteText = output.toString()
+                wroteText.contains("WARN") &&
+                        wroteText.contains("PROCESS_NAME") &&
+                        wroteText.contains("execution failed after 1 second(s)")
+            }
         }
     }
 }
