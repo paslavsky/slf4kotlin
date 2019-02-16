@@ -10,8 +10,9 @@ deploy:
     skip_cleanup: true
     api_key:
       secure: Rz7vQAfWgC1uawiFZvYqGOQjas2iA6MGkThS4E29FHUNSbP5YuMcerDbl1vu8WxNGv7F9v9YVTA5ctjrA2UwWI16mxrNdSWTFtIqU19HnT4Vwp++GcaIx+d++BlvLLRSIddGALR/vaKQfJ7oRghi8J9y9zLtl6/RN+zF8+2mTH6OodCA6qB1LnGvN2nrNawL5f6e7l/xKoOw92yXpg1cuBjlX+3GypXdp2cOK5nhlnlhhb0zRyZRPoxEW8/t1QfCUQQ1G4pGsw7cITI60enakBccUCX5UMPzJZl/bNRZFr4htTXqOF1r21WAgE15pZcMuaXSKtL3xTReAEbrfRrBKG4Ua08vu0nnWZ9Gr/dh7/Y6iTvk2kVJYehr3VIESWyNM9WohkFt0KxZN0ocxibdrIhJat7zU6wl+XLpcNooUy4oUPn31sFxmrUsmn6bU9/YrYdKWuKFbZmVv1scIk1IGkIoYqR5olb3N5UQBBeGFpMzkP/31oBmdUJhRjpINZ05kLapel4AdF7exTPeAtM0+ole2CTOULv5JYz2t3+d5T6UjsUwjKlgG+i+0/h3swBr4pZ3of5iy7DXrxM2AdBlo9RpJxW0pL4vdYVL25DAxnIB7t0JtqyKOIBSabR2dU5smw2+H1IR1b2qCZykeBHccQxwOb4nSA4MYkI/FClL6+Y=
-    file: target/slf4kotlin-kt-0.0.1.jar
+    file: target/slf4kotlin*.jar
     overwrite: true
+    file_glob: true
     on:
       repo: paslavsky/slf4kotlin
       branch: master
