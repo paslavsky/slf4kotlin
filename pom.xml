@@ -6,7 +6,7 @@
 
     <groupId>com.github.paslavsky</groupId>
     <artifactId>slf4kotlin</artifactId>
-    <version>0.0.4</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>Kotlin Wrapper for slf4j library</name>
@@ -50,9 +50,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.3.21</kotlin.version>
+        <kotlin.version>1.3.61</kotlin.version>
         <junit.version>4.12</junit.version>
-        <slf4j.version>1.7.25</slf4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
     </properties>
 
     <dependencies>

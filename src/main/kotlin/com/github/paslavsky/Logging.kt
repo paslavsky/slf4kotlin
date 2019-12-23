@@ -6,21 +6,16 @@ import kotlin.reflect.KClass
 import java.util.concurrent.TimeUnit
 
 typealias LogMethod = Logger.(String) -> Unit
+typealias LogMethodProvider = (LogLevel) -> LogMethod
 
-private val iError: LogMethod = { error(it) }
-private val iWarning: LogMethod = { warn(it) }
-private val iInfo: LogMethod = { info(it) }
-private val iDebug: LogMethod = { debug(it) }
-private val iTrace: LogMethod = { trace(it) }
-
-private val loggingMethods: Map<LogLevel, LogMethod> by lazy {
-    mapOf(
-            LogLevel.Error to iError,
-            LogLevel.Warning to iWarning,
-            LogLevel.Info to iInfo,
-            LogLevel.Debug to iDebug,
-            LogLevel.Trace to iTrace
-    )
+private val loggingMethods: LogMethodProvider = {
+    when (it) {
+        LogLevel.Trace -> Logger::trace
+        LogLevel.Debug -> Logger::debug
+        LogLevel.Info -> Logger::info
+        LogLevel.Warning -> Logger::warn
+        LogLevel.Error -> Logger::error
+    }
 }
 
 enum class LogLevel { Error, Warning, Info, Debug, Trace }
@@ -79,17 +74,18 @@ fun Any.logInfo(message: () -> String) {
     }
 }
 
-fun <T> Any.logSuccess(lazyMessage: () -> String, body: () -> T): T = body().also {
-    if (logger.isInfoEnabled) {
-        logger.info(lazyMessage())
-    }
-}
+fun <T> Any.logSuccess(lazyMessage: () -> String, level: LogLevel = LogLevel.Info, body: () -> T): T =
+        try {
+            body().also {
+                loggingMethods(level).invoke(logger, lazyMessage())
+            }
+        } catch (e: Exception) {
+            logWarning { "Failed: ${lazyMessage()}" }
+            throw e
+        }
 
-fun <T> Any.logSuccess(message: String, body: () -> T): T = body().also {
-    if (this.logger.isInfoEnabled) {
-        this.logger.info(message)
-    }
-}
+fun <T> Any.logSuccess(message: String, level: LogLevel = LogLevel.Info, body: () -> T): T =
+        logSuccess({ message }, level, body)
 
 fun <T> Any.todo(message: String, @Suppress("UNUSED_PARAMETER") block: () -> T) {
     if (this.logger.isWarnEnabled) {
@@ -101,7 +97,7 @@ fun <T> Any.logTime(name: String, level: LogLevel = LogLevel.Debug, block: () ->
     val start = System.currentTimeMillis()
     return try {
         block().also {
-            loggingMethods[level]!!.invoke(logger, "The execution of the $name took ${tookFrom(start)}")
+            loggingMethods(level).invoke(logger, "The execution of the $name took ${tookFrom(start)}")
         }
     } catch (e: Exception) {
         logWarning { "$name execution failed after ${tookFrom(start)}" }
